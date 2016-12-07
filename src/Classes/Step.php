@@ -22,6 +22,8 @@ class Step
     private $output;
     private $definition;
     private $argumentType;
+    // boscatto
+    private $screenshot;
 
     /**
      * @return mixed
@@ -213,5 +215,21 @@ class Step
     public function isFailed()
     {
         return $this->resultCode == StepResult::FAILED;
+    }
+
+    /**
+     * @param string $screenshot
+     */
+    public function setScreenshot($screenshot)
+    {
+        $this->screenshot = $screenshot;
+    }
+    
+    /**
+     * @return string $screenshot
+     */
+    public function getScreenshot()
+    {
+        return $this->screenshot;
     }
 }

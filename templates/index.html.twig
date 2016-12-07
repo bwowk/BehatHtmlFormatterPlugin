@@ -197,6 +197,10 @@
                                                     <br>
                                                     <p style="padding-left:2em ; color:black">| {{ step.output }}</p>
                                                 {% endif %}
+                                                <br>
+                                                {% if step.screenshot is not null %}
+                                                        <a style="text-align: center; display: block;" target="_blank" href="{{ step.screenshot }}"><img style="margin: 0 auto;" height="inherit" width="90%" src="{{ step.screenshot }}"></a>
+                                                    {% endif %}
                                                 {% if printLoopBreak is not null and ( loop.index % scenario.getLoopSize ) == 0 and loop.last != true  %}
                                                     </li><li class="list-group-item break">
                                                 {% endif %}
