@@ -574,12 +574,12 @@ class BehatHTMLFormatter implements Formatter {
                         $this->failedSteps[] = $step;
                         
                         // Format stepLine_AAAA_MM_DD_HH_MM_SS_MS.png
-                        $date = date('_Y_m_d_h:i:s');
+                        $date = time();
                         
                         //Set fileFolder string and sanitize it
                         $featureFolder = preg_replace('/\W/', '', $event->getFeature()->getTitle());
 
-                        //Set fileName string (using the' line as a name reference)
+                        //Set fileName string (using the line as a name reference)
                         $fileLine = $event->getStep()->getLine();
                         
                         $fileName = '/code/reports/assets/screenshots/' . $featureFolder . '/' . $fileLine;
