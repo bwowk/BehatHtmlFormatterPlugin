@@ -572,6 +572,35 @@ class BehatHTMLFormatter implements Formatter {
                     if($exception) {
                         $step->setException($exception->getMessage());
                         $this->failedSteps[] = $step;
+                        
+                        // Format stepLine_AAAA_MM_DD_HH_MM_SS_MS.png
+                        $date = time();
+                        
+                        //Set fileFolder string and sanitize it
+                        $featureFolder = preg_replace('/\W/', '', $event->getFeature()->getTitle());
+
+                        //Set fileName string (using the line as a name reference)
+                        $fileLine = $event->getStep()->getLine();
+                        
+                        $fileName = '/code/reports/assets/screenshots/' . $featureFolder . '/' . $fileLine;
+                        $screenshot_path = '../reports/assets/screenshots/' . $featureFolder . '/' . $fileLine . $date .'.png';
+                        //$fileName = $featureFolder . '/' . $fileLine;
+                        $replaceName = $fileName . $date .'.png';
+
+                        if(rename($fileName, $replaceName)) {
+                          $step->setScreenshot($screenshot_path);
+                        }
+                          
+                        
+                        // boscatto
+                        // passar o caminho absoluto da screenshot (pegar o this.basepath 
+                        // e concatenar com a pasta hardcoded /assets/screenshots)
+                        // considerar colocar os arquivos separados por feature folder (logica está no webcontext.php)
+                        // colocar a lógica toda para checar se existe um arquivo com esse nome
+                        // procurar pelo nome padrao e concatenar com o timestamp (formato stepLine_AAAA_MM_DD_HH_MM_SS_MS.png)
+                        // stepName = getLine // ja está pronto :)
+                        // $step->getLine();
+                        
                     } else {
                         $step->setOutput($result->getCallResult()->getStdOut());
                         $this->passedSteps[] = $step;
